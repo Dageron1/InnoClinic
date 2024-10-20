@@ -1,0 +1,6 @@
+@InnoClinic.AuthenticationService_HostAddress = http://localhost:5209
+
+GET {{InnoClinic.AuthenticationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
