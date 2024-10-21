@@ -1,5 +1,4 @@
 ﻿using InnoClinic.AuthService.DTOs;
-using InnoClinic.AuthService.Services.Error;
 using InnoClinic.AuthService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
