@@ -1,5 +1,4 @@
 ﻿using InnoClinic.AuthService.DTOs;
-using InnoClinic.AuthService.Services.Error;
 using InnoClinic.AuthService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +23,7 @@ public class AuthController : ControllerBase
     {
         var authServiceResult = await _authService.RegisterAsync(requestModel);
 
-        return Ok(new { Token = authServiceResult });
+        return StatusCode(201, new { Token = authServiceResult });
     }
 
     [HttpPost("sessions")]

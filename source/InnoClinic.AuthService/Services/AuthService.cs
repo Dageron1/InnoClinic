@@ -35,6 +35,8 @@ public class AuthService : IAuthService
             Email = registrationRequestDto.Email,
             NormalizedEmail = registrationRequestDto.Email.ToUpper(),
             PhoneNumber = registrationRequestDto.PhoneNumber,
+            CreatedAt = DateTime.UtcNow,
+            CreatedBy = Role.Patient,
         };
 
         await _userManager.CreateAsync(applicationUser, registrationRequestDto.Password);

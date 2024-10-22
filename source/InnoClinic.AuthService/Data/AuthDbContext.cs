@@ -14,6 +14,18 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);  
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<ApplicationUser>()
+           .Property(u => u.CreatedBy)
+           .IsRequired(false);
+
+        modelBuilder.Entity<ApplicationUser>()
+               .Property(u => u.UpdatedBy)
+               .IsRequired(false);
+
+        modelBuilder.Entity<ApplicationUser>()
+               .Property(u => u.PhotoId)
+               .IsRequired(false);
     }
 }
