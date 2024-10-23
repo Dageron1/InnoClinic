@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace InnoClinic.AuthService.Extensions;
 
@@ -33,6 +35,8 @@ public static class ServiceCollectionExtension
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<AuthDbContext>()
             .AddDefaultTokenProviders();
+
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
 
         services.AddSwaggerGen(options =>
         {

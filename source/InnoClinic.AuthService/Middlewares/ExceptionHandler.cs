@@ -1,12 +1,21 @@
 ﻿using InnoClinic.AuthService.Services.Error;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Text.Json;
 
 namespace InnoClinic.AuthService.Middlewares;
 
 public class ExceptionHandler : IExceptionHandler
 {
+    private readonly IStringLocalizer _localizer;
+
+    public ExceptionHandler(IStringLocalizerFactory localizerFactory)
+    {
+        var assemblyName = typeof(Program).Assembly.GetName().Name;
+        _localizer = localizerFactory.Create("ErrorMessages", assemblyName!);
+    }
+
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         httpContext.Response.ContentType = "application/problem+json";
@@ -50,22 +59,22 @@ public class ExceptionHandler : IExceptionHandler
         _ => StatusCodes.Status500InternalServerError
     };
 
-    private static string GetDetail(ErrorCode errorCode) => errorCode switch
+    private string GetDetail(ErrorCode errorCode) => errorCode switch
     {
-        ErrorCode.InvalidCredentials => "The email or password you entered is incorrect. Please check your credentials and try again.",
-        ErrorCode.InvalidToken => "The provided token is invalid or has expired. Please log in again.",
-        ErrorCode.EmailNotConfirmed => "Your email address has not been confirmed. Please check your email for a confirmation link.",
-        ErrorCode.EmailAlreadyConfirmed => "This email address has already been confirmed. You can log in with your credentials.",
-        ErrorCode.Forbid => "You do not have permission to perform this action.",
-        ErrorCode.UserAlreadyExists => "A user with this email address already exists. Try logging in or use a different email.",
-        ErrorCode.InvalidUser => "The user could not be found. Please check the provided information.",
-        ErrorCode.InvalidEmailOrPassword => "The email or password provided is invalid. Please try again.",
-        ErrorCode.InvalidData => "The provided data is invalid or incomplete. Please check the input and try again.",
-        ErrorCode.NoUsersFound => "No users were found with the provided information.",
-        ErrorCode.SavingError => "An error occurred while saving your data. Please try again later.",
-        ErrorCode.DeletionFailed => "Failed to delete the requested resource. Please try again.",
-        ErrorCode.Conflict => "There is a conflict with the existing data. Please resolve the conflict and try again.",
-        ErrorCode.InternalServerError => "An unexpected error occurred. Please try again later or contact support.",
-        _ => "An unknown error occurred."
+        ErrorCode.InvalidCredentials => _localizer["InvalidCredentials"],
+        ErrorCode.InvalidToken => _localizer["InvalidToken"],
+        ErrorCode.EmailNotConfirmed => _localizer["EmailNotConfirmed"],
+        ErrorCode.EmailAlreadyConfirmed => _localizer["EmailAlreadyConfirmed"],
+        ErrorCode.Forbid => _localizer["Forbid"],
+        ErrorCode.UserAlreadyExists => _localizer["UserAlreadyExists"],
+        ErrorCode.InvalidUser => _localizer["InvalidUser"],
+        ErrorCode.InvalidEmailOrPassword => _localizer["InvalidEmailOrPassword"],
+        ErrorCode.InvalidData => _localizer["InvalidData"],
+        ErrorCode.NoUsersFound => _localizer["NoUsersFound"],
+        ErrorCode.SavingError => _localizer["SavingError"],
+        ErrorCode.DeletionFailed => _localizer["DeletionFailed"],
+        ErrorCode.Conflict => _localizer["Conflict"],
+        ErrorCode.InternalServerError => _localizer["InternalServerError"],
+        _ => _localizer["UnknownError"]
     };
 }

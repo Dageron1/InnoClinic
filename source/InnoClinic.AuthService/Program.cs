@@ -1,5 +1,7 @@
 using InnoClinic.AuthService.Data;
 using InnoClinic.AuthService.Extensions;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace InnoClinic.AuthService;
 
@@ -13,6 +15,14 @@ public class Program
         builder.AddAppAuthentication();
 
         var app = builder.Build();
+
+        var supportedCultures = new[] { new CultureInfo("en") };
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("en"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        });
 
         if (app.Environment.IsDevelopment())
         {
