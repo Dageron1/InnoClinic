@@ -17,6 +17,10 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<ApplicationUser>()
+           .HasIndex(u => u.Email)
+           .IsUnique();
+
+        modelBuilder.Entity<ApplicationUser>()
            .Property(u => u.CreatedBy)
            .IsRequired(false);
 

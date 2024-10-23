@@ -12,6 +12,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
+            // remove the existing DbContextOptions<AuthDbContext> configuration
+            // and replace it with another one
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType == typeof(DbContextOptions<AuthDbContext>));
 
@@ -25,16 +27,5 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=InnoClinic_Auth_Test;Trusted_Connection=True;TrustServerCertificate=True");
             });
         });
-    }
-
-    public static async Task InitializeTestDatabaseAsync(IServiceProvider serviceProvider)
-    {
-        using (var scope = serviceProvider.CreateScope())
-        {
-            var scopedServices = scope.ServiceProvider;
-            var db = scopedServices.GetRequiredService<AuthDbContext>();
-
-            await db.Database.MigrateAsync();
-        }
     }
 }
