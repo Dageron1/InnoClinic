@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace InnoClinic.AuthService.Extensions;
 
@@ -56,6 +58,9 @@ public static class ServiceCollectionExtension
                 }
             });
         });
+
+        services.AddFluentValidationAutoValidation();
+        services.AddValidatorsFromAssemblyContaining<Program>();
         services.AddScoped<IAuthService, InnoClinic.AuthService.Services.AuthService>();
         services.AddScoped<IDbInitializer, DbInitializer>();
         services.AddScoped<ITokenService, TokenService>();
