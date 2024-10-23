@@ -24,11 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\..\source\InnoClinic.AuthService\InnoClinic.AuthService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\source\InnoClinic.AuthService\InnoClinic.AuthService.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
+
 
 </Project>
