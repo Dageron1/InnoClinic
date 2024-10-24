@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{491745D2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoClinic.AuthService", "source\InnoClinic.AuthService\InnoClinic.AuthService.csproj", "{0AD60B3E-1C03-44DA-9A73-497FEB76F44B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoClinic.ProfileService", "source\InnoClinic.ProfileService\InnoClinic.ProfileService.csproj", "{C4CAD803-CB5A-4480-B2C5-56B5956D5EDA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoClinic.AuthService.IntegrationTests", "tests\InnoClinic.AuthService.IntegrationTests\InnoClinic.AuthService.IntegrationTests.csproj", "{63B6E0C3-3B4D-4E52-8D87-9D9875B4C4AD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoClinic.AuthService.UnitTests", "tests\InnoClinic.AuthService.UnitTests\InnoClinic.AuthService.UnitTests.csproj", "{64545B22-45B6-4FED-BB67-4BC44AB7FFF9}"
@@ -25,10 +23,6 @@ Global
 		{0AD60B3E-1C03-44DA-9A73-497FEB76F44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD60B3E-1C03-44DA-9A73-497FEB76F44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AD60B3E-1C03-44DA-9A73-497FEB76F44B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4CAD803-CB5A-4480-B2C5-56B5956D5EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4CAD803-CB5A-4480-B2C5-56B5956D5EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4CAD803-CB5A-4480-B2C5-56B5956D5EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4CAD803-CB5A-4480-B2C5-56B5956D5EDA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{63B6E0C3-3B4D-4E52-8D87-9D9875B4C4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{63B6E0C3-3B4D-4E52-8D87-9D9875B4C4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63B6E0C3-3B4D-4E52-8D87-9D9875B4C4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,7 +37,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0AD60B3E-1C03-44DA-9A73-497FEB76F44B} = {325F90A0-A56F-4EE8-A219-54BE75345EE0}
-		{C4CAD803-CB5A-4480-B2C5-56B5956D5EDA} = {325F90A0-A56F-4EE8-A219-54BE75345EE0}
 		{63B6E0C3-3B4D-4E52-8D87-9D9875B4C4AD} = {491745D2-F22A-4C29-BA89-1B04EA2EAB00}
 		{64545B22-45B6-4FED-BB67-4BC44AB7FFF9} = {491745D2-F22A-4C29-BA89-1B04EA2EAB00}
 	EndGlobalSection
