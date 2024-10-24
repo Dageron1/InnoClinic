@@ -46,7 +46,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         _createdUserEmails.Add(registrationRequest.Email);
 
         // Act
-        var token = await _authService.RegisterAsync(registrationRequest);
+        var token = await _authService.RegisterAsync(registrationRequest, CancellationToken.None);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
@@ -73,7 +73,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         };
 
         // Act
-        Func<Task> act = async () => await _authService.RegisterAsync(registrationRequest);
+        Func<Task> act = async () => await _authService.RegisterAsync(registrationRequest, CancellationToken.None);
 
         // Assert
         await act.Should().ThrowAsync<AuthException>().Where(e => e.ErrorCode == ErrorCode.UserAlreadyExists);
@@ -92,7 +92,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         _createdUserEmails.Add(registrationRequest.Email);
 
         // Act
-        var token = await _authService.RegisterAsync(registrationRequest);
+        var token = await _authService.RegisterAsync(registrationRequest, CancellationToken.None);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
@@ -123,7 +123,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         };
 
         // Act
-        var token = await _authService.LoginAsync(loginRequest);
+        var token = await _authService.LoginAsync(loginRequest, CancellationToken.None);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
@@ -145,7 +145,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         };
 
         // Act
-        Func<Task> act = async () => await _authService.LoginAsync(loginRequest);
+        Func<Task> act = async () => await _authService.LoginAsync(loginRequest, CancellationToken.None);
 
         // Assert
         await act.Should().ThrowAsync<AuthException>().Where(e => e.ErrorCode == ErrorCode.InvalidCredentials);
@@ -164,7 +164,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         };
 
         // Act
-        Func<Task> act = async () => await _authService.LoginAsync(loginRequest);
+        Func<Task> act = async () => await _authService.LoginAsync(loginRequest, CancellationToken.None);
 
         // Assert
         await act.Should().ThrowAsync<AuthException>().Where(e => e.ErrorCode == ErrorCode.InvalidCredentials);

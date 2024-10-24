@@ -36,7 +36,7 @@ public class AuthServiceTests
             .ReturnsAsync(existingUser);
 
         // Act
-        Func<Task> act = async () => await _authService.RegisterAsync(registrationRequestDto);
+        Func<Task> act = async () => await _authService.RegisterAsync(registrationRequestDto, It.IsAny<CancellationToken>());
 
         // Assert
         var exception = await act.Should().ThrowAsync<AuthException>();
@@ -75,7 +75,7 @@ public class AuthServiceTests
             .Returns(generatedToken);
 
         // Act
-        var result = await _authService.RegisterAsync(registrationRequestDto);
+        var result = await _authService.RegisterAsync(registrationRequestDto, It.IsAny<CancellationToken>());
 
         // Assert
         createdUser.Email.Should().Be(registrationRequestDto.Email);
@@ -98,7 +98,7 @@ public class AuthServiceTests
             .ReturnsAsync((ApplicationUser)null);
 
         // Act
-        Func<Task> act = async () => await _authService.LoginAsync(loginRequestDto);
+        Func<Task> act = async () => await _authService.LoginAsync(loginRequestDto, It.IsAny<CancellationToken>());
 
         // Assert
         var exception = await act.Should().ThrowAsync<AuthException>();
@@ -120,7 +120,7 @@ public class AuthServiceTests
             .ReturnsAsync(false);
 
         // Act
-        Func<Task> act = async () => await _authService.LoginAsync(loginRequestDto);
+        Func<Task> act = async () => await _authService.LoginAsync(loginRequestDto, It.IsAny<CancellationToken>());
 
         // Assert
         var exception = await act.Should().ThrowAsync<AuthException>();
@@ -153,7 +153,7 @@ public class AuthServiceTests
             .Returns(token);
 
         // Act
-        var result = await _authService.LoginAsync(loginRequestDto);
+        var result = await _authService.LoginAsync(loginRequestDto, It.IsAny<CancellationToken>());
 
         // Assert
         result.Should().Be(token);
