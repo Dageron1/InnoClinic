@@ -20,7 +20,7 @@ public class AuthService : IAuthService
         _tokenService = tokenService;
     }
 
-    public async Task<string> RegisterAsync(RegistrationRequestDto registrationRequestDto)
+    public async Task<string> RegisterAsync(RegistrationRequestDto registrationRequestDto, CancellationToken cancellationToken)
     {
         var existingUser = await _userManager.FindByEmailAsync(registrationRequestDto.Email.ToLower());
 
@@ -40,17 +40,15 @@ public class AuthService : IAuthService
 
         await _userManager.CreateAsync(applicationUser, registrationRequestDto.Password);
 
-        var roleName = Role.Patient;
+        var roleName = Roles.Patient;
 
         await _userManager.AddToRoleAsync(applicationUser, roleName);
         var roles = await _userManager.GetRolesAsync(applicationUser);
 
-        //await SendEmailConfirmationAsync(applicationUser.Email);
-
         return _tokenService.GenerateToken(applicationUser, roles);
     }
 
-    public async Task<string> LoginAsync(LoginRequestDto loginRequestDto)
+    public async Task<string> LoginAsync(LoginRequestDto loginRequestDto, CancellationToken cancellationToken)
     {
         var existingUser = await _userManager.FindByEmailAsync(loginRequestDto.Email);
 

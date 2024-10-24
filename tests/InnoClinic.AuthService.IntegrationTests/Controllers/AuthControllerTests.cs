@@ -27,11 +27,11 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>, I
         _factory = factory;
     }
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
         _scope = _factory.Services.CreateScope();
         _userManager = _scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -58,6 +58,7 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>, I
         responseBody.Should().Contain("token");
 
         var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Email == registrationRequest.Email);
+        user.Should().NotBeNull("User should be created after successful registration");
         user!.Email.Should().Be(registrationRequest.Email);
     }
 
@@ -239,7 +240,7 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>, I
         var loginRequest = new LoginRequestDto
         {
             Email = existingUser.Email!,
-            Password = "InvalidPassword123!" // Invalid password
+            Password = "InvalidPassword123!"
         };
 
         var content = new StringContent(JsonConvert.SerializeObject(loginRequest), Encoding.UTF8, "application/json");

@@ -49,9 +49,9 @@ public class AuthServiceTests
     public async Task RegisterAsync_ShouldCreateNewUserAndAddToRole(RegistrationRequestDto registrationRequestDto)
     {
         // Arrange
-        ApplicationUser createdUser = null;
+        ApplicationUser createdUser = null!;
         var generatedToken = "generated-jwt-token";
-        var roleName = Role.Patient;
+        var roleName = Roles.Patient;
 
         _userManagerMock
             .Setup(x => x.FindByEmailAsync(It.IsAny<string>()))

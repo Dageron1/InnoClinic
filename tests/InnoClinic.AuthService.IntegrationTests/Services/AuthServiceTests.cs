@@ -56,7 +56,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         user!.Email.Should().Be(registrationRequest.Email);
 
         var roles = await _userManager.GetRolesAsync(user);
-        roles.Should().Contain(Role.Patient);
+        roles.Should().Contain(Roles.Patient);
     }
 
     [Fact]
@@ -101,13 +101,13 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         user.Should().NotBeNull();
 
         var roles = await _userManager.GetRolesAsync(user);
-        roles.Should().Contain(Role.Patient);
+        roles.Should().Contain(Roles.Patient);
 
         var claimsPrincipal = _tokenService!.ValidateToken(token);
 
         var claims = claimsPrincipal.Claims;
         claims.Any(c => c.Value.Contains(registrationRequest.Email)).Should().BeTrue();
-        claims.Any(c => c.Value.Contains(Role.Patient)).Should().BeTrue();
+        claims.Any(c => c.Value.Contains(Roles.Patient)).Should().BeTrue();
     }
 
     [Fact]
@@ -160,7 +160,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         var loginRequest = new LoginRequestDto
         {
             Email = existingUser.Email!,
-            Password = "InvalidPassword123!" // Invalid password
+            Password = "InvalidPassword123!"
         };
 
         // Act

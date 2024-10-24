@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Localization;
 
 namespace InnoClinic.AuthService.Extensions;
 
-public static class ServiceCollectionExtension
+public static class ServiceCollectionExtensions
 {
     public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {

@@ -1,6 +1,6 @@
 ﻿namespace InnoClinic.AuthService.Constants;
 
-public static class Role
+public static class Roles
 {
     public const string Receptionist = "RECEPTIONIST";
 

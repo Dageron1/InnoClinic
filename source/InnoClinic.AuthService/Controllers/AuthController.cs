@@ -18,9 +18,9 @@ public class AuthController : ControllerBase
     [HttpPost("users")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
-    public async Task<ActionResult> Register([FromBody] RegistrationRequestDto requestModel)
+    public async Task<ActionResult> Register([FromBody] RegistrationRequestDto requestModel, CancellationToken cancellationToken)
     {
-        var authServiceResult = await _authService.RegisterAsync(requestModel);
+        var authServiceResult = await _authService.RegisterAsync(requestModel, cancellationToken);
 
         return StatusCode(201, new { Token = authServiceResult });
     }
@@ -28,9 +28,9 @@ public class AuthController : ControllerBase
     [HttpPost("sessions")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> Login([FromBody] LoginRequestDto model)
+    public async Task<ActionResult> Login([FromBody] LoginRequestDto model, CancellationToken cancellationToken)
     {
-        var authServiceResult = await _authService.LoginAsync(model);
+        var authServiceResult = await _authService.LoginAsync(model, cancellationToken);
 
         return Ok(new { Token = authServiceResult });
     }

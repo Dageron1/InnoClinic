@@ -1,10 +1,10 @@
 ﻿using InnoClinic.AuthService.DTOs;
-using InnoClinic.AuthService.Entities;
 
 namespace InnoClinic.AuthService.Services.Interfaces;
 
 public interface IAuthService
 {
-    Task<string> RegisterAsync(RegistrationRequestDto registrationRequestDto);
-    Task<string> LoginAsync(LoginRequestDto loginRequestDto);
+    Task<string> RegisterAsync(RegistrationRequestDto registrationRequestDto, CancellationToken cancellationToken);
+    Task<string> LoginAsync(LoginRequestDto loginRequestDto, CancellationToken cancellationToken);
 }
+

@@ -23,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\source\InnoClinic.AuthService\InnoClinic.AuthService.csproj" />
+		<ProjectReference Include="..\..\source\InnoClinic.AuthService\InnoClinic.AuthService.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

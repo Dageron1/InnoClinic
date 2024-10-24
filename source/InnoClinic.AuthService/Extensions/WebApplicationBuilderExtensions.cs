@@ -4,15 +4,19 @@ using System.Text;
 
 namespace InnoClinic.AuthService.Extensions;
 
-public static class WebApplicationBuilderExtension
+public static class WebApplicationBuilderExtensions
 {
     public static WebApplicationBuilder AddAppAuthentication(this WebApplicationBuilder builder)
     {
         var settingsSection = builder.Configuration.GetSection("ApiSettings");
+        if (!settingsSection.Exists())
+        {
+            throw new InvalidOperationException("ApiSettings section is missing in the configuration.");
+        }
 
-        var secret = settingsSection.GetValue<string>("JwtOptions:Secret");
-        var issuer = settingsSection.GetValue<string>("JwtOptions:Issuer");
-        var audience = settingsSection.GetValue<string>("JwtOptions:Audience");
+        var secret = GetRequiredConfigurationValue(settingsSection, "JwtOptions:Secret");
+        var issuer = GetRequiredConfigurationValue(settingsSection, "JwtOptions:Issuer");
+        var audience = GetRequiredConfigurationValue(settingsSection, "JwtOptions:Audience");
 
         var key = Encoding.ASCII.GetBytes(secret);
 
@@ -34,5 +38,15 @@ public static class WebApplicationBuilderExtension
         });
 
         return builder;
+    }
+
+    private static string GetRequiredConfigurationValue(IConfigurationSection section, string key)
+    {
+        var value = section.GetValue<string>(key);
+        if (string.IsNullOrEmpty(value))
+        {
+            throw new InvalidOperationException($"{key} is missing or empty in the configuration.");
+        }
+        return value;
     }
 }

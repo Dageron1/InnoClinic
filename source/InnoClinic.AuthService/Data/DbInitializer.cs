@@ -27,9 +27,9 @@ public class DbInitializer : IDbInitializer
                 await _db.Database.MigrateAsync();
             }
 
-            if (!await _roleManager.RoleExistsAsync(Role.Patient))
+            if (!await _roleManager.RoleExistsAsync(Roles.Patient))
             {
-                await _roleManager.CreateAsync(new IdentityRole(Role.Patient));
+                await _roleManager.CreateAsync(new IdentityRole(Roles.Patient));
             }
         }
         catch (Exception ex)

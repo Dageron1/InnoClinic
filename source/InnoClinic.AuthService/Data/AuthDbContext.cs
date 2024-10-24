@@ -10,25 +10,25 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser>
        : base(options)
     {
     }
-    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(builder);
 
-        modelBuilder.Entity<ApplicationUser>()
+        builder.Entity<ApplicationUser>()
            .HasIndex(u => u.Email)
            .IsUnique();
 
-        modelBuilder.Entity<ApplicationUser>()
+        builder.Entity<ApplicationUser>()
            .Property(u => u.CreatedBy)
            .IsRequired(false);
 
-        modelBuilder.Entity<ApplicationUser>()
+        builder.Entity<ApplicationUser>()
                .Property(u => u.UpdatedBy)
                .IsRequired(false);
 
-        modelBuilder.Entity<ApplicationUser>()
+        builder.Entity<ApplicationUser>()
                .Property(u => u.PhotoId)
                .IsRequired(false);
     }

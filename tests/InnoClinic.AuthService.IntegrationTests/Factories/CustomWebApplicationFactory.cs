@@ -12,8 +12,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-            // remove the existing DbContextOptions<AuthDbContext> configuration
-            // and replace it with another one
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType == typeof(DbContextOptions<AuthDbContext>));
 
