@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
     {
         var authServiceResult = await _authService.RegisterAsync(requestModel, cancellationToken);
 
-        return StatusCode(201, new { Token = authServiceResult });
+        return StatusCode(StatusCodes.Status201Created, new { Token = authServiceResult });
     }
 
     [HttpPost("sessions")]

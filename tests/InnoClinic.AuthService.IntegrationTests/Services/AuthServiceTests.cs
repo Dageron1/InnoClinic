@@ -17,20 +17,20 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
     private readonly CustomWebApplicationFactory _factory;
     private UserManager<ApplicationUser> _userManager = null!;
     private ITokenService _tokenService = null!;
-    private List<string> _createdUserEmails = new();
+    private readonly List<string> _createdUserEmails = new();
 
     public AuthServiceTests(CustomWebApplicationFactory factory)
     {
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
         _scope = _factory.Services.CreateScope();
         _userManager = _scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         _tokenService = _scope.ServiceProvider.GetRequiredService<ITokenService>();
         _authService = new InnoClinic.AuthService.Services.AuthService(_userManager, _tokenService);
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
         token.Should().NotBeNullOrEmpty();
 
         var user = await _userManager.FindByEmailAsync(registrationRequest.Email);
-
+        user.Should().NotBeNull("User should be created after successful registration");
         user!.Email.Should().Be(registrationRequest.Email);
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -99,6 +99,7 @@ public class AuthServiceTests : IClassFixture<CustomWebApplicationFactory>, IAsy
 
         var user = await _userManager.FindByEmailAsync(registrationRequest.Email);
         user.Should().NotBeNull();
+        user!.Email.Should().Be(registrationRequest.Email);
 
         var roles = await _userManager.GetRolesAsync(user);
         roles.Should().Contain(Roles.Patient);

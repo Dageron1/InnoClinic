@@ -55,7 +55,7 @@ public class AuthServiceTests
 
         _userManagerMock
             .Setup(x => x.FindByEmailAsync(It.IsAny<string>()))
-            .ReturnsAsync((ApplicationUser)null);
+            .ReturnsAsync((ApplicationUser?)null);
 
         _userManagerMock
             .Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
@@ -95,7 +95,7 @@ public class AuthServiceTests
         // Arrange
         _userManagerMock
             .Setup(x => x.FindByEmailAsync(It.IsAny<string>()))
-            .ReturnsAsync((ApplicationUser)null);
+            .ReturnsAsync((ApplicationUser?)null);
 
         // Act
         Func<Task> act = async () => await _authService.LoginAsync(loginRequestDto, It.IsAny<CancellationToken>());
